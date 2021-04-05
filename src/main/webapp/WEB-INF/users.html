@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<!--    <meta charset="UTF-8">-->
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>Users</title>
+    <style>table th, table td {padding: 5px;}</style>
+</head>
+<body>
+<div>
+    <form method="post">
+        <input type="text" name="name" placeholder="name"/>
+        <input type="text" name="lastname" placeholder="lastname"/>
+        <input type="number" name="age" placeholder="age"/>
+        <button type="=submit">Add</button>
+    </form>
+</div>
+
+<table id="tableID" border="1" contenteditable="true">
+
+    <th>name</th>
+    <th>last name</th>
+    <th>age</th>
+    </tr>
+    <tr class="table" th:each="item : ${list}">
+        <td th:text="${item.getName()}" >name</td>
+        <td th:text="${item.getLastName()}">last name</td>
+        <td th:text="${item.getAge()}">age</td>
+        <td >
+            <form th:action="@{delete}" method="post">
+                <input type="hidden" name="id" th:value="${item.getId()}" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </form>
+        </td>
+        <td>
+            <form action="#" th:action="@{edit}"  method="post">
+            <input type="hidden" name="id" th:value="${item.getId()}" />
+<!--                <input type="hidden"  name="name" />-->
+<!--                       th:value="${item.getName()}" />-->
+                <input type="hidden" name="lastname" />
+<!--                       th:value="${item.getLastName()}" />-->
+                <input type="hidden" name="age" />
+<!--                       th:value="${item.getAge()}" />-->
+<!--                <textarea id="my-textarea" style="display:none"></textarea>-->
+                <input type="submit" value="Edit"/>
+<!--                       class="btn btn-danger" />-->
+                </form>
+        </td>
+    </tr>
+<!--    <script>-->
+<!--        function getContent(){-->
+<!--            document.getElementById("my-textarea").value = document.getElementById("my-content").innerHTML;-->
+<!--        }-->
+<!--    </script>-->
+</table>
+</table>
+</body>
+</html>
