@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 @Configuration
-@EnableJpaRepositories("web.repository")
+//@EnableJpaRepositories("web.repository")
 @EnableTransactionManagement
 @ComponentScan("web")
 @PropertySource(value = "classpath:db.properties", encoding = "UTF-8")

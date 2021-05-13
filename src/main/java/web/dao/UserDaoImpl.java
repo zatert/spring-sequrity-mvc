@@ -7,6 +7,7 @@ import web.model.User;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 //@Transactional(readOnly = true)
@@ -30,7 +31,7 @@ public class UserDaoImpl {//implements UserDao{
 
     }
     @Transactional(readOnly = true)
-    public List<User> all(){
+    public List<User> findAll(){
         return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
@@ -43,10 +44,9 @@ public class UserDaoImpl {//implements UserDao{
          }
     @Transactional
     public void edit(User user){//(Integer id, String name, String lastname, Integer age){
-        entityManager.createQuery("UPDATE User u SET u.name =  :name,  u.lastName = :lastName, u.age = :age WHERE u.id = :id")
+        entityManager.createQuery("UPDATE User u SET u.name =  :name,  u.lastName = :lastName, u.email = :email WHERE u.id = :id")
             .setParameter("name", user.getName())
             .setParameter("lastName", user.getLastName())
-            .setParameter("age", user.getAge())
             .setParameter("id", user.getId())
             .executeUpdate();
     }
@@ -57,6 +57,14 @@ public class UserDaoImpl {//implements UserDao{
         );
         q.setParameter("id", id);
         return q.getSingleResult();
+    }
+    @Transactional
+    public User findByName(String name){
+        TypedQuery<User> q = entityManager.createQuery(
+                "select u from User u where u.name = :name", User.class
+        );
+        q.setParameter("name", name);
+        return (User)q.getSingleResult();
     }
 }
 // на которую выводятся все юзеры с возможностью добавлять, удалять и изменять юзера.
