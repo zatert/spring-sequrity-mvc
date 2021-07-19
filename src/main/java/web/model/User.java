@@ -14,27 +14,32 @@ import java.util.Set;
 public class User {//implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String email;
-    private String name;
-    private String lastName;
+    private Long id;
+    private String username;
     private String password;
-    @ManyToMany
-    @JoinTable(name = "users_roles",
-    joinColumns = @JoinColumn(name ="user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private String email;
 
+    public User(){}
 
-    public User() {
-    }
-
-    public User(String email, String name, String lastName, String password) {
-        this.email = email;
-        this.name = name;
-        this.lastName = lastName;
+    public User(String username, String password, String email) {
+        this.username = username;
         this.password = password;
+        this.email = email;
     }
+
+    public User(Long id, String username, String password, String email, Collection<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="users_roles",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Collection<Role> roles;
 //    public User(Integer id, String email, String password, Set<Role> roles, String name, String lastName) {
 //        this.id = id;
 //        this.email = email;

@@ -22,9 +22,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         Set set = (Set) userDetails.getAuthorities();
         String str = set.toString();
         if (str.equals("[ROLE_ADMIN]")) {
-            response.sendRedirect("/hello");
+            response.sendRedirect("/users");
         } else if (str.equals("[ROLE_USER]")) {
-            response.sendRedirect("/hello");
+            response.sendRedirect("/user");
         } else {
             response.sendRedirect("/");
         }

@@ -40,17 +40,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/hello").permitAll()
-                .antMatchers("/users").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/user").hasRole("ADMIN")
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/users").hasRole("ADMIN")
 
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
+//                .loginPage("/login").permitAll()
                 // .defaultSuccessUrl("/auth/hello");
-                .loginProcessingUrl("/login")
-                .successHandler(loginSuccessHandler)//new LoginSuccessHandler())
+//                .loginProcessingUrl("/login")
+                .successHandler(new LoginSuccessHandler())//new LoginSuccessHandler())   loginSuccessHandler
                 .usernameParameter("username")
                 .passwordParameter("password") // везде 100
                 .permitAll();

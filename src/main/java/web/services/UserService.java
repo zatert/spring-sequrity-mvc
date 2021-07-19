@@ -13,6 +13,7 @@ import web.model.Role;
 import web.model.User;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,22 +25,34 @@ public class UserService implements UserDetailsService{
     private UserDaoImpl userDao;
 
     public User findByName (String name){
-      //  User ud = userDao.findByName(name);
         return userDao.findByName(name);
     }
     public List<User> findAll () {return userDao.findAll();}
+
+    public void add(User user) {
+        userDao.addUser(user);
+    }
+    public void edit(User user) {
+        userDao.edit(user);
+    }
+    public User getOne(Long id) {
+        return userDao.getOne(id);
+    }
+    public void delete(Long id) {
+        userDao.delete(id);
+    }
     @Override
-   // @Transactional   // это ломает все
+    //@Transactional   // это ломает все
     public UserDetails loadUserByUsername(String str) throws UsernameNotFoundException {
         User user = findByName(str);
         if(user == null){
             throw new UsernameNotFoundException(String.format("User '&s' not found", str));
         }
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 mapRolesToAuthorities(user.getRoles()));
     }
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
-            return roles.stream().map(r-> new SimpleGrantedAuthority(r.getRole())).collect(Collectors.toList());
+           return roles.stream().map(r-> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
         }
 
 }

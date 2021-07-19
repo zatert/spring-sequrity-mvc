@@ -27,7 +27,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("web")
 @EnableWebMvc
-//@EnableTransactionManagement
+@EnableTransactionManagement
 public class WebConfig implements WebMvcConfigurer {  // имплементируется когда хотим в ручную настроить спрингмвс  extends WebMvcConfigurerAdapter{
 
     private final ApplicationContext applicationContext;
