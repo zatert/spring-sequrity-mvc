@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 @Configuration
-//@EnableJpaRepositories("web.repository")
 @EnableTransactionManagement
 @ComponentScan("web")
 @PropertySource(value = "classpath:db.properties", encoding = "UTF-8")
@@ -31,10 +30,6 @@ public class DataBaseConfig {
 
     @Autowired
     private Environment environment;
-//    @Bean
-//    public DataSourc dataSourc(){   // здесь подключаем DBCP через мавен
-//        return null;
-//    }
     // Настройки ентитиМенеджер
     @Bean//(name = "emf")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -74,17 +69,4 @@ public class DataBaseConfig {
 
         return transactionManager;
     }
-//
-//    @Bean
-//    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-//        return new PersistenceExceptionTranslationPostProcessor();
-//    }
-//
-//    Properties additionalProperties() {
-//        Properties properties = new Properties();
-//        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-//        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-//
-//        return properties;
-//    }
 }
